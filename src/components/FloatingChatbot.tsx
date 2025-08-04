@@ -38,16 +38,31 @@ const FloatingChatbot: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/langchain/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: userMessage.text,
-          model: 'groq' // Static model as requested
-        }),
-      });
+      // Try proxy first, then fallback to direct connection
+      let response;
+      try {
+        response = await fetch('/api/langchain/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: userMessage.text,
+            model: 'groq' // Static model as requested
+          }),
+        });
+      } catch (proxyError) {
+        response = await fetch('https://statethon-backend.onrender.com/api/langchain/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: userMessage.text,
+            model: 'groq' // Static model as requested
+          }),
+        });
+      }
 
       if (!response.ok) {
         throw new Error('Failed to get response');

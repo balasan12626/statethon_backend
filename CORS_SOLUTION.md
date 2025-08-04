@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://statethon-backend.onrender.com',
         changeOrigin: true,
         secure: false,
       }
@@ -27,7 +27,7 @@ export default defineConfig({
 Implemented a dual-connection approach in the frontend:
 
 1. **Primary**: Try proxy connection (`/api/search`)
-2. **Fallback**: Direct backend connection (`http://localhost:3000/api/search`)
+2. **Fallback**: Direct backend connection (`https://statethon-backend.onrender.com/api/search`)
 
 ### 3. Enhanced Error Handling
 Added comprehensive error handling for different scenarios:
@@ -62,7 +62,7 @@ Added a visual indicator showing backend connection status:
 ### Test Commands:
 ```bash
 # Test backend directly
-curl -X POST http://localhost:3000/api/search -H "Content-Type: application/json" -d "{\"text\": \"test\"}"
+curl -X POST https://statethon-backend.onrender.com/api/search -H "Content-Type: application/json" -d "{\"text\": \"test\"}"
 
 # Test through proxy
 curl -X POST http://localhost:5173/api/search -H "Content-Type: application/json" -d "{\"text\": \"test\"}"

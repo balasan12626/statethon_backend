@@ -1,24 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Copy, 
   Check, 
   Download, 
   Share2, 
-  Eye, 
-  Star, 
   TrendingUp, 
-  Award, 
   Bookmark, 
   ExternalLink,
-  BarChart3,
   Target,
   Users,
   DollarSign,
   MapPin,
-  Calendar,
-  ChevronDown,
-  ChevronUp,
   Info
 } from 'lucide-react';
 import CountUp from 'react-countup';
@@ -56,7 +49,6 @@ const EnhancedResultCard: React.FC<EnhancedResultCardProps> = ({
   copied
 }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'skills' | 'career'>('overview');
 
   // Helper functions

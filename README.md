@@ -16,7 +16,7 @@ This is the frontend application for the UAE NCO (National Classification of Occ
 
 ## API Integration
 
-The frontend connects to the backend API at `http://localhost:3000/api/search` with the following specifications:
+The frontend connects to the backend API at `https://statethon-backend.onrender.com/api/search` with the following specifications:
 
 ### Request Format
 ```json
@@ -69,7 +69,7 @@ The frontend connects to the backend API at `http://localhost:3000/api/search` w
 
 ## Backend Requirements
 
-Make sure your backend server is running at `http://localhost:3000` and has the `/api/search` endpoint available.
+The backend server is deployed at `https://statethon-backend.onrender.com` and has the `/api/search` endpoint available.
 
 ## Error Handling
 

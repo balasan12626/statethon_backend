@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ChevronDown, 
-  Menu, 
   X, 
-  Search, 
-  Filter,
   ArrowUp,
   Share,
   Download
@@ -374,7 +371,7 @@ export const MobileShareMenu: React.FC<MobileShareMenuProps> = ({
   return (
     <MobileBottomSheet isOpen={isOpen} onClose={onClose} title="Share Results">
       <div className="space-y-4">
-        {navigator.share && (
+        {(typeof navigator !== 'undefined' && 'share' in navigator) && (
           <button
             onClick={handleNativeShare}
             className="w-full flex items-center gap-3 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors"

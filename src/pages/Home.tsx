@@ -202,7 +202,7 @@ const Home = () => {
       if (proxyResponse.ok) return true;
       
       // Fallback to direct backend call
-      const directResponse = await fetch('http://localhost:3000/api/search', {
+      const directResponse = await fetch('https://statethon-backend.onrender.com/api/search', {
         method: 'OPTIONS',
         headers: {
           'Content-Type': 'application/json',
@@ -245,7 +245,7 @@ const Home = () => {
         console.log('Using proxy connection');
       } catch (proxyError) {
         console.log('Proxy failed, trying direct connection...');
-        data = await cachedSearchFetch<SearchResponse>('http://localhost:3000/api/search', { text: jobDescription.trim() });
+        data = await cachedSearchFetch<SearchResponse>('https://statethon-backend.onrender.com/api/search', { text: jobDescription.trim() });
         console.log('Using direct connection');
       }
       
@@ -364,7 +364,7 @@ Make the response comprehensive, professional, and helpful for job seekers.`;
           systemPrompt: 'You are a specialized career counselor and job classification expert. Provide detailed, accurate, and helpful information about job roles, skills, qualifications, and career guidance. Be comprehensive and professional in your responses.'
         });
       } catch (proxyError) {
-        response = await makeApiCall('http://localhost:3000/api/langchain/chat', {
+        response = await makeApiCall('https://statethon-backend.onrender.com/api/langchain/chat', {
           message: prompt,
           model: 'groq',
           systemPrompt: 'You are a specialized career counselor and job classification expert. Provide detailed, accurate, and helpful information about job roles, skills, qualifications, and career guidance. Be comprehensive and professional in your responses.'

@@ -66,7 +66,7 @@ class APICache {
     let active = 0;
     let expired = 0;
 
-    for (const [key, item] of this.cache.entries()) {
+    for (const [, item] of this.cache.entries()) {
       if (now > item.expiry) {
         expired++;
       } else {

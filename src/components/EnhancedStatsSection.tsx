@@ -1,10 +1,8 @@
-import React from 'react';
+
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
 import { 
-  FaUsers, 
   FaIndustry, 
-  FaChartLine, 
   FaSearch,
   FaDatabase,
   FaGlobe,

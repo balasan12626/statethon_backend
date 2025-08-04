@@ -1,9 +1,6 @@
-import React from 'react';
 import { Target, Users, Award, Globe } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 
 const About = () => {
-  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

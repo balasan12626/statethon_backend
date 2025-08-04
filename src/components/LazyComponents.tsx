@@ -58,13 +58,11 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 interface LazyWrapperProps {
   children: React.ReactNode;
   fallback?: React.ReactNode;
-  errorMessage?: string;
 }
 
 export const LazyWrapper: React.FC<LazyWrapperProps> = ({
   children,
-  fallback = <ResultsSkeleton />,
-  errorMessage = 'Failed to load component'
+  fallback = <ResultsSkeleton />
 }) => (
   <ErrorBoundary
     onError={(error) => console.error('Component error:', error)}
