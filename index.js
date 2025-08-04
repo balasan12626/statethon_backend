@@ -45,12 +45,43 @@ app.use('/api/', limiter);
 // Compression middleware
 app.use(compression());
 
-// CORS middleware
+// CORS middleware - Cross-platform configuration
+const allowedOrigins = [
+  // Production frontend
+  'https://statethonfrontend.netlify.app',
+  // Local development origins
+  'http://localhost:3000',
+  'http://localhost:3001', 
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:3001',
+  'http://127.0.0.1:5173',
+  'http://127.0.0.1:5174'
+];
+
+// Add custom origins from environment variable
+if (process.env.FRONTEND_URL) {
+  const customOrigins = process.env.FRONTEND_URL.split(',').map(url => url.trim());
+  allowedOrigins.push(...customOrigins);
+}
+
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? process.env.FRONTEND_URL?.split(',') || ["https://yourdomain.com"]
-    : process.env.FRONTEND_URL || ["http://localhost:3000", "http://localhost:3001", "http://localhost:5173"],
-  credentials: true
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log(`❌ CORS blocked origin: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
 }));
 
 app.use(express.json({ limit: '50mb' }));
@@ -177,6 +208,11 @@ app.listen(PORT, () => {
 📄 PDF API: http://localhost:${PORT}/api/pdf
 🤖 LangChain API: http://localhost:${PORT}/api/langchain
 ✅ Health Check: http://localhost:${PORT}/api/search/health
+
+🌍 CORS Configuration:
+✅ Production Frontend: https://statethonfrontend.netlify.app
+✅ Local Development: http://localhost:5174, http://localhost:5173
+✅ Cross-platform support: localhost + 127.0.0.1 variants
 
 📋 Configuration checklist:
 ${process.env.PINECONE_API_KEY ? '✅' : '❌'} PINECONE_API_KEY
